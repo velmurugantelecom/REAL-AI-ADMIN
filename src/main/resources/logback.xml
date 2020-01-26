@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="HOME_LOG" value="D:/log" />
+
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd} | %d{HH:mm:ss.SSS} | %thread | %5p |  Tracking ID = %X{trackingNumber}  |  %msg %n</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="FIX_WINDOW_INFO_LOG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${HOME_LOG}/Logs/%d{yyyy-MM}/%d{dd-MM-yyyy}/log_%d{dd-MM-yyyy}_%i.log </FileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>25MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{yyyy-MM-dd} | %d{HH:mm:ss.SSS} | %thread | %5p | %logger{80} | %m%n</pattern>
+		</encoder>
+	</appender>
+
+
+<root level="info">
+    <appender-ref ref="STDOUT" />
+     <appender-ref ref="FIX_WINDOW_INFO_LOG" />
+</root>
+</configuration>
